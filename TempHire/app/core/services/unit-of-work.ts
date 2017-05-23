@@ -1,5 +1,8 @@
 ﻿import { Injectable } from '@angular/core';
-import { EntityManager, Entity, EntityQuery, FetchStrategy, SaveOptions, EntityChangedEventArgs } from 'breeze-client';
+import { 
+    EntityManager, Entity, EntityQuery, FetchStrategy, 
+    SaveOptions, EntityChangedEventArgs, EntityType
+} from 'breeze-client';
 import { Subject } from 'rxjs/Subject';
 
 import { EntityManagerProvider } from './entity-manager-provider';
@@ -71,6 +74,11 @@ export class UnitOfWork {
 
     getChanges(): Entity[] {
         return this.manager.getChanges();
+    }
+
+    getEntities<T extends Entity>(entityTypeName: string): T[] {
+        let entityType = <EntityType>this.manager.metadataStore.getEntityType(entityTypeName);
+        return <T[]>this.manager.getEntities(entityType.getSelfAndSubtypes());
     }
 
     commit(): Promise<Entity[]> {
