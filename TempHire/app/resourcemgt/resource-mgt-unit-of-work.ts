@@ -57,6 +57,7 @@ export class ResourceMgtUnitOfWork extends UnitOfWork {
     states: IRepository<State>;
 
     staffingResourceFactory: StaffingResourceFactory;
+    stateFactory: IEntityFactory<State>;
 
     constructor(emProvider: EntityManagerProvider) {
         super(emProvider);
@@ -68,5 +69,6 @@ export class ResourceMgtUnitOfWork extends UnitOfWork {
         this.states = this.createRepository<State>('State', 'resourcemgt/states', true);
 
         this.staffingResourceFactory = new StaffingResourceFactory(this.manager, this.addressTypes, this.phoneNumberTypes);
+        this.stateFactory = this.createFactory<State>('State');
     }
 }

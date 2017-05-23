@@ -6,6 +6,7 @@ import { ResourceMgtUnitOfWork, StaffingResourceListItem } from './resource-mgt-
 import { BusyService } from '../core/services/common';
 
 import { ResourceNameEditorComponent } from './resource-name-editor.component';
+import {State} from '../core/entities/state';
 
 @Component({
     moduleId: module.id,
@@ -50,6 +51,16 @@ export class ResourceMgtComponent implements OnInit, OnDestroy {
                 this.router.navigate(['/resourcemgt/new', name]);
             }
         });
+    }
+
+    addStateToList() {
+        let state = <State> {
+            id: 'PR',
+            shortName: 'PR',
+            name: "Puerto Rico",
+            rowVersion: 0
+        };
+        this.unitOfWork.stateFactory.create(state);
     }
 
     private loadList() {
