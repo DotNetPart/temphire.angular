@@ -53,16 +53,6 @@ export class ResourceMgtComponent implements OnInit, OnDestroy {
         });
     }
 
-    addStateToList() {
-        let state = <State> {
-            id: 'PR',
-            shortName: 'PR',
-            name: "Puerto Rico",
-            rowVersion: 0
-        };
-        this.unitOfWork.stateFactory.create(state);
-    }
-
     private loadList() {
         return this.busyService.busy(this.unitOfWork.staffingResourceListItems.all()
             .then(data => {
